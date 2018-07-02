@@ -3,7 +3,7 @@
 
 $(document).ready(function ($, window, document, undefined) {
 
-  var matcherPlugin = "symptomMatcher", //declaring and initializing an object called matcherPlugin with the disease class and the ID, diseases from doagnostic.html as members. The name, symptomMatcher is used because the script at tthe end of diagnostic.html calls symptomMatcher.
+  var matcherPlugin = "symptomMatcher",
     defaults = {
       plugin_ver: "v0.1",
       disease_element: '.disease',
@@ -11,7 +11,7 @@ $(document).ready(function ($, window, document, undefined) {
       sortContainer: '#diseases'
     };
 
-  function Plugin (element, options) { //creates an object with members including the defaults from matcherPlugin. The other members will be modified when the init function is called.
+  function Plugin (element, options) {
     this.element = element;
     this.settings = $.extend({}, defaults, options);
     this._defaults = defaults;
@@ -21,8 +21,8 @@ $(document).ready(function ($, window, document, undefined) {
   
   var globalSymptomsList = [];
 
-  $.extend(Plugin.prototype, //init and match extend the Plugin prototype
-    init: function () {      //calls the match function whenever a symptom checkbox is clicked
+  $.extend(Plugin.prototype, {
+    init: function () {
       if ($(this.element).attr('data-symptom'))
         this.settings.symptom = $(this.element).data('symptom');
       var that = this;
@@ -30,7 +30,7 @@ $(document).ready(function ($, window, document, undefined) {
         that.match(this.element, this.settings)
       });
     },
-    match: function () { //Counts the number of checked symptoms that are in the data-category for each disease in diagnotstic.html, sorts the diseases under the ID, diseases in diagnostic.html
+    match: function () {
       var that = this;
       var symptom = this.settings.symptom;
       var checked = $(this.element).is(':checked');
@@ -51,7 +51,7 @@ $(document).ready(function ($, window, document, undefined) {
     }
   });
 
-  $.fn[matcherPlugin] = function (options) { //Creates a matcherPlugin for rach element
+  $.fn[matcherPlugin] = function (options) {
     this.each(function() {
       if (!$.data(this, "plugin_" + matcherPlugin)) {
         $.data(this, "plugin_" + matcherPlugin, new Plugin(this, options));
@@ -63,8 +63,8 @@ $(document).ready(function ($, window, document, undefined) {
 
 })//(jQuery, window, document);
 
-// treatment and inofrmation pop-up box 
-$(document).ready(function(){ //Brings up the corresponding pop-up when a disease is clicked and makes the pop-up dissappear when the pop-up is clicked
+// treatment and inofrmation popup box 
+var pop = $(document).ready(function(){
   $(document).on("click", "#Malaria", function(){
     $("#d1").slideToggle();
   });
